@@ -34,10 +34,10 @@ def _pip_import_impl(repository_ctx):
         repository_ctx.path("requirements.bzl"),
         "--directory",
         repository_ctx.path(""),
-    ])
+    ], quiet=False)
 
     if result.return_code:
-        fail("pip_import failed: %s (%s)" % (result.stdout, result.stderr))
+        fail("pip_import failed: %s (%s) %s" % (result.stdout, result.stderr, result.return_code))
 
 pip_import = repository_rule(
     attrs = {

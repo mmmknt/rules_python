@@ -31,9 +31,9 @@ def _whl_impl(repository_ctx):
             for extra in repository_ctx.attr.extras
         ]
 
-    result = repository_ctx.execute(args)
+    result = repository_ctx.execute(args, quiet=False)
     if result.return_code:
-        fail("whl_library failed: %s (%s)" % (result.stdout, result.stderr))
+        fail("whl_library failed: %s (%s) %s" % (result.stdout, result.stderr, result.return_code))
 
 whl_library = repository_rule(
     attrs = {
